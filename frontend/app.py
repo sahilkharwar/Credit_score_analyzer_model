@@ -11,12 +11,9 @@ st.caption("Alternative credit scoring + AI investment guidance for underserved,
 
 # ---------------------------------------------------------------- load users
 try:
-    users_response = requests.get(
-        f"{API_URL}/api/users",
-        timeout=5
-    ).json()
+    users_response = requests.get(f"{API_URL}/api/users", timeout=5).json()
 except requests.exceptions.ConnectionError:
-    st.error("Backend not reachable. Start it first.")
+    st.error("Backend not reachable. Start it first: `uvicorn main:app --reload` inside /backend")
     st.stop()
 
 user_list = {u["name"] + " — " + u["occupation"]: u["user_id"] for u in users_response["users"]}
@@ -77,7 +74,8 @@ with tab1:
         st.subheader("Raw signal inputs")
         signal_cols = ["utility_on_time_pct", "utility_bills_missed_12m",
                         "recharge_delay_std_days", "upi_inflow_regularity_score",
-                        "essential_spending_ratio", "ecommerce_orders_30d"]
+                        "essential_spending_ratio", "ecommerce_orders_30d",
+                        "avg_yearly_emi_inr", "emi_delay_months_12m"]
         st.dataframe(pd.DataFrame([{c: user_data[c] for c in signal_cols}]),
                      use_container_width=True, hide_index=True)
 
@@ -98,8 +96,14 @@ with tab2:
             c3.metric("Impulse buys", f"₹{hook['impulse_shopping_inr']}")
             c4.metric("Subscriptions", f"₹{hook['subscriptions_spend_inr']}")
 
+            e1, e2 = st.columns(2)
+            e1.metric("Avg yearly EMI", f"₹{hook['avg_yearly_emi_inr']:,}")
+            e2.metric("Months EMI delayed (12m)", hook["emi_delay_months_12m"])
+            if hook["emi_caution"]:
+                st.warning(f"⚠️ {hook['emi_caution']}")
+
         if st.button("👍 Yes, show me how that could grow"):
-            st.session_state.savings_amount = hook["potential_micro_investment_savings_inr"]
+            st.session_state.savings_amount = hook["recommended_investment_amount_inr"]
             st.session_state.stage = "risk_quiz"
             st.rerun()
 
@@ -139,32 +143,80 @@ with tab2:
                 f"Based on your answers, you're a **{bucket} risk** investor. "
                 f"By trimming unnecessary spending, you unlocked **₹{amount}/month** to invest."
             )
-            st.write(f"**Suggested instruments:** {', '.join(st.session_state.recommended_instruments)}")
+            st.write(f"**Suggested instrument categories:** {', '.join(st.session_state.recommended_instruments)}")
 
-        proj = requests.post(f"{API_URL}/api/investment-projection",
-                              json={"monthly_investment": amount, "risk_bucket": bucket}).json()
+        plan_tab1, plan_tab2 = st.tabs(["📈 Fund-based projection", "🏢 Personalized stock portfolio"])
 
-        df_proj = pd.DataFrame({
-            "Month": proj["months"],
-            "Pessimistic": proj["pessimistic"],
-            "Expected": proj["expected"],
-            "Optimistic": proj["optimistic"],
-        })
+        # ---- Fund-based scenario projection (mutual fund style, 3 scenarios) ----
+        with plan_tab1:
+            proj = requests.post(f"{API_URL}/api/investment-projection",
+                                  json={"monthly_investment": amount, "risk_bucket": bucket}).json()
 
-        fig2 = go.Figure()
-        fig2.add_trace(go.Scatter(x=df_proj["Month"], y=df_proj["Expected"], name="Expected",
-                                   line=dict(color="blue", width=3)))
-        fig2.add_trace(go.Scatter(x=df_proj["Month"], y=df_proj["Optimistic"], name="Optimistic",
-                                   line=dict(color="green", dash="dot")))
-        fig2.add_trace(go.Scatter(x=df_proj["Month"], y=df_proj["Pessimistic"], name="Pessimistic",
-                                   line=dict(color="red", dash="dot")))
-        fig2.update_layout(title=f"5-Year Projected Growth (₹{amount}/month SIP)",
-                            xaxis_title="Months", yaxis_title="Portfolio Value (₹)", height=400)
-        st.plotly_chart(fig2, use_container_width=True)
+            df_proj = pd.DataFrame({
+                "Month": proj["months"],
+                "Pessimistic": proj["pessimistic"],
+                "Expected": proj["expected"],
+                "Optimistic": proj["optimistic"],
+            })
 
-        final_expected = df_proj["Expected"].iloc[-1]
-        st.success(f"In 5 years, your ₹{amount}/month could grow to roughly ₹{final_expected:,.0f} "
-                   f"under expected market conditions.")
+            fig2 = go.Figure()
+            fig2.add_trace(go.Scatter(x=df_proj["Month"], y=df_proj["Expected"], name="Expected",
+                                       line=dict(color="blue", width=3)))
+            fig2.add_trace(go.Scatter(x=df_proj["Month"], y=df_proj["Optimistic"], name="Optimistic",
+                                       line=dict(color="green", dash="dot")))
+            fig2.add_trace(go.Scatter(x=df_proj["Month"], y=df_proj["Pessimistic"], name="Pessimistic",
+                                       line=dict(color="red", dash="dot")))
+            fig2.update_layout(title=f"5-Year Projected Growth (₹{amount}/month SIP)",
+                                xaxis_title="Months", yaxis_title="Portfolio Value (₹)", height=400)
+            st.plotly_chart(fig2, use_container_width=True)
+
+            final_expected = df_proj["Expected"].iloc[-1]
+            st.success(f"In 5 years, your ₹{amount}/month could grow to roughly ₹{final_expected:,.0f} "
+                       f"under expected market conditions (fund-based estimate).")
+
+        # ---- Personalized stock portfolio (individual companies, ₹50-500 share range) ----
+        with plan_tab2:
+            port_resp = requests.post(f"{API_URL}/api/recommend-portfolio",
+                                       json={"monthly_investment": amount, "risk_bucket": bucket})
+            if port_resp.status_code != 200:
+                st.warning(port_resp.json().get("detail", "Could not build a stock portfolio for this amount."))
+            else:
+                port_data = port_resp.json()
+                st.write(f"A diversified mini-portfolio picked from {bucket}-risk companies you can "
+                         f"afford at ₹{amount}/month, with a slightly different monthly amount per "
+                         f"company (never more than ₹50 apart) and its own simulated growth path:")
+
+                # Raw month-by-month trajectory is only for the chart, not the table.
+                display_df = pd.DataFrame(port_data["portfolio"]).drop(columns=["Projected_Values"])
+                st.dataframe(display_df, use_container_width=True, hide_index=True)
+
+                # Stacked area chart: one growth layer per stock, so the different
+                # allocations and independently fluctuating rates are actually visible.
+                fig3 = go.Figure()
+                for stock in port_data["portfolio"]:
+                    fig3.add_trace(go.Scatter(
+                        x=port_data["months"],
+                        y=stock["Projected_Values"],
+                        name=f"{stock['Ticker']} (₹{stock['Monthly Allocation (₹)']}/mo)",
+                        mode="lines",
+                        stackgroup="one",
+                    ))
+                fig3.add_trace(go.Scatter(
+                    x=port_data["months"],
+                    y=port_data["total_invested"],
+                    name="Total Principal Invested",
+                    line=dict(color="black", width=3, dash="dash"),
+                ))
+                fig3.update_layout(title=f"5-Year Breakdown of Custom Portfolio Growth (₹{amount}/month SIP)",
+                                    xaxis_title="Months", yaxis_title="Portfolio Value (₹)", height=420)
+                st.plotly_chart(fig3, use_container_width=True)
+
+                final_invested = port_data["total_invested"][-1]
+                final_value = port_data["projected_values"][-1]
+                profit = final_value - final_invested
+                st.success(f"Investing ₹{amount}/month in these specific companies: total principal "
+                           f"**₹{final_invested:,.0f}** over 5 years, projected to grow to "
+                           f"**₹{final_value:,.0f}** — an estimated profit of **₹{profit:,.0f}**.")
 
         if st.button("🔄 Restart chat"):
             st.session_state.stage = "score"

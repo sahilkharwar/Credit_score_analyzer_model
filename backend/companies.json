@@ -1,0 +1,402 @@
+[
+  {
+    "ticker": "STK001",
+    "company_name": "Finance Enterprises 1",
+    "sector": "Finance",
+    "current_price": 337.74,
+    "risk_bucket": "Low",
+    "expected_cagr": 0.057
+  },
+  {
+    "ticker": "STK002",
+    "company_name": "Textiles Enterprises 2",
+    "sector": "Textiles",
+    "current_price": 112.79,
+    "risk_bucket": "Low",
+    "expected_cagr": 0.053
+  },
+  {
+    "ticker": "STK003",
+    "company_name": "FMCG Enterprises 3",
+    "sector": "FMCG",
+    "current_price": 239.86,
+    "risk_bucket": "Low",
+    "expected_cagr": 0.057
+  },
+  {
+    "ticker": "STK004",
+    "company_name": "Textiles Enterprises 4",
+    "sector": "Textiles",
+    "current_price": 277.41,
+    "risk_bucket": "Low",
+    "expected_cagr": 0.056
+  },
+  {
+    "ticker": "STK005",
+    "company_name": "Auto Enterprises 5",
+    "sector": "Auto",
+    "current_price": 342.45,
+    "risk_bucket": "High",
+    "expected_cagr": 0.142
+  },
+  {
+    "ticker": "STK006",
+    "company_name": "Pharma Enterprises 6",
+    "sector": "Pharma",
+    "current_price": 315.17,
+    "risk_bucket": "Low",
+    "expected_cagr": 0.071
+  },
+  {
+    "ticker": "STK007",
+    "company_name": "Energy Enterprises 7",
+    "sector": "Energy",
+    "current_price": 203.11,
+    "risk_bucket": "Low",
+    "expected_cagr": 0.079
+  },
+  {
+    "ticker": "STK008",
+    "company_name": "Auto Enterprises 8",
+    "sector": "Auto",
+    "current_price": 201.47,
+    "risk_bucket": "Low",
+    "expected_cagr": 0.053
+  },
+  {
+    "ticker": "STK009",
+    "company_name": "Finance Enterprises 9",
+    "sector": "Finance",
+    "current_price": 431.37,
+    "risk_bucket": "High",
+    "expected_cagr": 0.201
+  },
+  {
+    "ticker": "STK010",
+    "company_name": "FMCG Enterprises 10",
+    "sector": "FMCG",
+    "current_price": 378.38,
+    "risk_bucket": "High",
+    "expected_cagr": 0.217
+  },
+  {
+    "ticker": "STK011",
+    "company_name": "Finance Enterprises 11",
+    "sector": "Finance",
+    "current_price": 220.34,
+    "risk_bucket": "High",
+    "expected_cagr": 0.203
+  },
+  {
+    "ticker": "STK012",
+    "company_name": "Agri Enterprises 12",
+    "sector": "Agri",
+    "current_price": 328.33,
+    "risk_bucket": "Medium",
+    "expected_cagr": 0.092
+  },
+  {
+    "ticker": "STK013",
+    "company_name": "Energy Enterprises 13",
+    "sector": "Energy",
+    "current_price": 81.3,
+    "risk_bucket": "High",
+    "expected_cagr": 0.197
+  },
+  {
+    "ticker": "STK014",
+    "company_name": "FMCG Enterprises 14",
+    "sector": "FMCG",
+    "current_price": 493.35,
+    "risk_bucket": "Low",
+    "expected_cagr": 0.061
+  },
+  {
+    "ticker": "STK015",
+    "company_name": "Pharma Enterprises 15",
+    "sector": "Pharma",
+    "current_price": 254.03,
+    "risk_bucket": "Medium",
+    "expected_cagr": 0.102
+  },
+  {
+    "ticker": "STK016",
+    "company_name": "FMCG Enterprises 16",
+    "sector": "FMCG",
+    "current_price": 144.28,
+    "risk_bucket": "Medium",
+    "expected_cagr": 0.117
+  },
+  {
+    "ticker": "STK017",
+    "company_name": "Energy Enterprises 17",
+    "sector": "Energy",
+    "current_price": 127.01,
+    "risk_bucket": "High",
+    "expected_cagr": 0.136
+  },
+  {
+    "ticker": "STK018",
+    "company_name": "Textiles Enterprises 18",
+    "sector": "Textiles",
+    "current_price": 220.75,
+    "risk_bucket": "High",
+    "expected_cagr": 0.142
+  },
+  {
+    "ticker": "STK019",
+    "company_name": "Energy Enterprises 19",
+    "sector": "Energy",
+    "current_price": 195.93,
+    "risk_bucket": "Low",
+    "expected_cagr": 0.075
+  },
+  {
+    "ticker": "STK020",
+    "company_name": "Finance Enterprises 20",
+    "sector": "Finance",
+    "current_price": 412.27,
+    "risk_bucket": "Medium",
+    "expected_cagr": 0.084
+  },
+  {
+    "ticker": "STK021",
+    "company_name": "Retail Enterprises 21",
+    "sector": "Retail",
+    "current_price": 460.91,
+    "risk_bucket": "High",
+    "expected_cagr": 0.141
+  },
+  {
+    "ticker": "STK022",
+    "company_name": "Infrastructure Enterprises 22",
+    "sector": "Infrastructure",
+    "current_price": 274.65,
+    "risk_bucket": "High",
+    "expected_cagr": 0.134
+  },
+  {
+    "ticker": "STK023",
+    "company_name": "Textiles Enterprises 23",
+    "sector": "Textiles",
+    "current_price": 112.83,
+    "risk_bucket": "High",
+    "expected_cagr": 0.174
+  },
+  {
+    "ticker": "STK024",
+    "company_name": "Agri Enterprises 24",
+    "sector": "Agri",
+    "current_price": 386.16,
+    "risk_bucket": "Medium",
+    "expected_cagr": 0.104
+  },
+  {
+    "ticker": "STK025",
+    "company_name": "Textiles Enterprises 25",
+    "sector": "Textiles",
+    "current_price": 148.69,
+    "risk_bucket": "Low",
+    "expected_cagr": 0.065
+  },
+  {
+    "ticker": "STK026",
+    "company_name": "Pharma Enterprises 26",
+    "sector": "Pharma",
+    "current_price": 390.1,
+    "risk_bucket": "Low",
+    "expected_cagr": 0.069
+  },
+  {
+    "ticker": "STK027",
+    "company_name": "Agri Enterprises 27",
+    "sector": "Agri",
+    "current_price": 406.44,
+    "risk_bucket": "Medium",
+    "expected_cagr": 0.084
+  },
+  {
+    "ticker": "STK028",
+    "company_name": "Textiles Enterprises 28",
+    "sector": "Textiles",
+    "current_price": 221.73,
+    "risk_bucket": "Medium",
+    "expected_cagr": 0.095
+  },
+  {
+    "ticker": "STK029",
+    "company_name": "FMCG Enterprises 29",
+    "sector": "FMCG",
+    "current_price": 298.95,
+    "risk_bucket": "Low",
+    "expected_cagr": 0.07
+  },
+  {
+    "ticker": "STK030",
+    "company_name": "Retail Enterprises 30",
+    "sector": "Retail",
+    "current_price": 291.64,
+    "risk_bucket": "Medium",
+    "expected_cagr": 0.087
+  },
+  {
+    "ticker": "STK031",
+    "company_name": "Tech Enterprises 31",
+    "sector": "Tech",
+    "current_price": 245.64,
+    "risk_bucket": "Medium",
+    "expected_cagr": 0.137
+  },
+  {
+    "ticker": "STK032",
+    "company_name": "Textiles Enterprises 32",
+    "sector": "Textiles",
+    "current_price": 444.13,
+    "risk_bucket": "Medium",
+    "expected_cagr": 0.126
+  },
+  {
+    "ticker": "STK033",
+    "company_name": "Finance Enterprises 33",
+    "sector": "Finance",
+    "current_price": 278.46,
+    "risk_bucket": "Low",
+    "expected_cagr": 0.075
+  },
+  {
+    "ticker": "STK034",
+    "company_name": "Pharma Enterprises 34",
+    "sector": "Pharma",
+    "current_price": 278.45,
+    "risk_bucket": "Low",
+    "expected_cagr": 0.061
+  },
+  {
+    "ticker": "STK035",
+    "company_name": "Tech Enterprises 35",
+    "sector": "Tech",
+    "current_price": 122.7,
+    "risk_bucket": "High",
+    "expected_cagr": 0.18
+  },
+  {
+    "ticker": "STK036",
+    "company_name": "Retail Enterprises 36",
+    "sector": "Retail",
+    "current_price": 269.87,
+    "risk_bucket": "Low",
+    "expected_cagr": 0.076
+  },
+  {
+    "ticker": "STK037",
+    "company_name": "Energy Enterprises 37",
+    "sector": "Energy",
+    "current_price": 424.25,
+    "risk_bucket": "Medium",
+    "expected_cagr": 0.083
+  },
+  {
+    "ticker": "STK038",
+    "company_name": "FMCG Enterprises 38",
+    "sector": "FMCG",
+    "current_price": 445.1,
+    "risk_bucket": "Low",
+    "expected_cagr": 0.072
+  },
+  {
+    "ticker": "STK039",
+    "company_name": "Pharma Enterprises 39",
+    "sector": "Pharma",
+    "current_price": 417.21,
+    "risk_bucket": "High",
+    "expected_cagr": 0.133
+  },
+  {
+    "ticker": "STK040",
+    "company_name": "Pharma Enterprises 40",
+    "sector": "Pharma",
+    "current_price": 263.88,
+    "risk_bucket": "High",
+    "expected_cagr": 0.147
+  },
+  {
+    "ticker": "STK041",
+    "company_name": "Energy Enterprises 41",
+    "sector": "Energy",
+    "current_price": 442.59,
+    "risk_bucket": "Medium",
+    "expected_cagr": 0.136
+  },
+  {
+    "ticker": "STK042",
+    "company_name": "Energy Enterprises 42",
+    "sector": "Energy",
+    "current_price": 389.87,
+    "risk_bucket": "High",
+    "expected_cagr": 0.191
+  },
+  {
+    "ticker": "STK043",
+    "company_name": "Retail Enterprises 43",
+    "sector": "Retail",
+    "current_price": 229.55,
+    "risk_bucket": "High",
+    "expected_cagr": 0.164
+  },
+  {
+    "ticker": "STK044",
+    "company_name": "Energy Enterprises 44",
+    "sector": "Energy",
+    "current_price": 282.91,
+    "risk_bucket": "Low",
+    "expected_cagr": 0.057
+  },
+  {
+    "ticker": "STK045",
+    "company_name": "Textiles Enterprises 45",
+    "sector": "Textiles",
+    "current_price": 202.14,
+    "risk_bucket": "High",
+    "expected_cagr": 0.143
+  },
+  {
+    "ticker": "STK046",
+    "company_name": "Tech Enterprises 46",
+    "sector": "Tech",
+    "current_price": 149.1,
+    "risk_bucket": "Low",
+    "expected_cagr": 0.057
+  },
+  {
+    "ticker": "STK047",
+    "company_name": "FMCG Enterprises 47",
+    "sector": "FMCG",
+    "current_price": 457.44,
+    "risk_bucket": "Medium",
+    "expected_cagr": 0.111
+  },
+  {
+    "ticker": "STK048",
+    "company_name": "Energy Enterprises 48",
+    "sector": "Energy",
+    "current_price": 175.31,
+    "risk_bucket": "Medium",
+    "expected_cagr": 0.112
+  },
+  {
+    "ticker": "STK049",
+    "company_name": "Agri Enterprises 49",
+    "sector": "Agri",
+    "current_price": 375.51,
+    "risk_bucket": "High",
+    "expected_cagr": 0.167
+  },
+  {
+    "ticker": "STK050",
+    "company_name": "Energy Enterprises 50",
+    "sector": "Energy",
+    "current_price": 403.08,
+    "risk_bucket": "Medium",
+    "expected_cagr": 0.086
+  }
+]

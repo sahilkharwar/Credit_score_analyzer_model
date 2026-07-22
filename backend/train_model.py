@@ -28,6 +28,8 @@ FEATURES = [
     "upi_inflow_regularity_score",
     "essential_spending_ratio",
     "ecommerce_orders_30d",
+    "avg_yearly_emi_inr",
+    "emi_delay_months_12m",
 ]
 
 FEATURE_LABELS = {
@@ -37,6 +39,8 @@ FEATURE_LABELS = {
     "upi_inflow_regularity_score": "Income / UPI inflow regularity",
     "essential_spending_ratio": "Essential vs. discretionary spending ratio",
     "ecommerce_orders_30d": "E-commerce order frequency (30 days)",
+    "avg_yearly_emi_inr": "Average yearly EMI obligation",
+    "emi_delay_months_12m": "Months EMI payment delayed (past 12 months)",
 }
 
 
