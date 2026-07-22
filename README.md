@@ -10,10 +10,11 @@ spending savings hook (your tutor's idea) before assessing risk tolerance
 pip install -r requirements.txt
 ```
 
-## 1. Generate the dataset (60 synthetic users)
+## 1. Generate the datasets
 ```
 cd backend
-python generate_dataset.py
+python generate_dataset.py       # 500 synthetic users
+python generate_companies.py     # 50 synthetic companies, ₹50-500 share price
 ```
 
 ## 2. Train the XGBoost model + build the SHAP explainer
@@ -52,6 +53,18 @@ Opens at http://localhost:8501
 - **Rule-scored risk quiz** (3 questions) buckets users into
   Low/Medium/High, which drives instrument mapping + the SIP projection.
 
+## Personalized stock portfolio (new)
+On the results screen, a second tab ("🏢 Personalized stock portfolio")
+builds a real mini-portfolio: `generate_companies.py` creates 50 synthetic
+companies with share prices between ₹50-500, each tagged with a risk
+bucket and an expected CAGR. `/api/recommend-portfolio` picks up to 4
+companies matching the user's risk bucket that they can actually afford
+at their monthly SIP amount, splits the investment equally across them,
+and projects 5-year growth per stock — shown as a principal-vs-value
+area chart plus a breakdown table (ticker, price, allocation, shares/month,
+expected return). Selection is deterministic per (risk, amount) pair so
+results are reproducible for a demo.
+
 ## Your tutor's idea, merged in
 The chat flow opens with `GET /api/spending-hook/{user_id}` — it surfaces
 the user's food delivery / outings / impulse-shopping spend and proposes
@@ -64,12 +77,14 @@ the credit-scoring + risk-profiling core is still the backbone.
 ```
 fintech_app/
 ├── backend/
-│   ├── generate_dataset.py   # synthetic data (incl. discretionary spend)
-│   ├── train_model.py        # trains XGBoost + builds SHAP explainer
-│   ├── main.py                # FastAPI app — all endpoints
-│   ├── synthetic_users.json   # generated dataset (60 users)
-│   ├── credit_model.json      # trained model, native XGBoost format (generated)
-│   └── model_config.json      # feature list + labels (generated)
+│   ├── generate_dataset.py    # synthetic user data (incl. discretionary spend)
+│   ├── generate_companies.py  # synthetic company/stock data (₹50-500)
+│   ├── train_model.py         # trains XGBoost + builds SHAP explainer
+│   ├── main.py                 # FastAPI app — all endpoints
+│   ├── synthetic_users.json    # generated dataset (60 users)
+│   ├── companies.json          # generated dataset (50 companies)
+│   ├── credit_model.json       # trained model, native XGBoost format (generated)
+│   └── model_config.json       # feature list + labels (generated)
 ├── frontend/
 │   └── app.py                 # Streamlit web app (2 tabs: score, chat)
 ├── requirements.txt
