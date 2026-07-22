@@ -1,0 +1,18 @@
+{
+  "features": [
+    "utility_on_time_pct",
+    "utility_bills_missed_12m",
+    "recharge_delay_std_days",
+    "upi_inflow_regularity_score",
+    "essential_spending_ratio",
+    "ecommerce_orders_30d"
+  ],
+  "feature_labels": {
+    "utility_on_time_pct": "Utility bill payment consistency",
+    "utility_bills_missed_12m": "Missed utility bills (past 12 months)",
+    "recharge_delay_std_days": "Mobile recharge timing volatility",
+    "upi_inflow_regularity_score": "Income / UPI inflow regularity",
+    "essential_spending_ratio": "Essential vs. discretionary spending ratio",
+    "ecommerce_orders_30d": "E-commerce order frequency (30 days)"
+  }
+}

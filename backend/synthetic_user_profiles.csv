@@ -1,0 +1,61 @@
+user_id,name,occupation,city_tier,monthly_income_inr,recharge_freq_days,recharge_delay_std_days,avg_recharge_inr,utility_on_time_pct,utility_bills_missed_12m,avg_utility_bill_inr,ecommerce_orders_30d,essential_spending_ratio,upi_inflow_regularity_score,min_wallet_balance_inr,food_delivery_spend_inr,outing_entertainment_spend_inr,impulse_shopping_inr,subscriptions_spend_inr,total_unnecessary_spend_inr,potential_micro_investment_savings_inr,risk_appetite_bucket,credit_score_label
+USR_1001,Rajesh Bose,Kirana Shop Owner,Tier-3,30000,28,9.5,719,49.4,0,427,3,0.93,0.86,1140,429,287,369,130,1215,500,Low,655
+USR_1002,Kavita Gupta,Gig Delivery Worker,Tier-2,45000,28,9.5,479,62.9,4,1326,3,0.92,0.66,1988,557,526,576,268,1927,500,High,494
+USR_1003,Meena Nair,College Student / Freelancer,Tier-2,20000,60,3.5,666,58.7,0,1502,7,0.47,0.28,1694,2825,1635,3256,514,8230,2100,Medium,622
+USR_1004,Arjun Tiwari,Small Artisan / Handloom,Rural,12000,28,5.4,199,51.9,0,2094,3,0.57,0.33,4329,1738,857,597,231,3423,900,Medium,618
+USR_1005,Ankit Hegde,Private School Teacher,Tier-3,60000,28,7,479,47.2,1,1973,4,0.37,0.33,254,12886,6156,8585,3500,31127,7800,Medium,568
+USR_1006,Sunita Tiwari,Auto Rickshaw Driver,Tier-3,60000,30,8.5,666,95.8,2,1693,6,0.54,0.33,1216,7676,7275,8699,567,24217,6100,High,601
+USR_1007,Suresh Singh,Beautician / Salon Owner,Tier-2,12000,28,4.4,479,59.4,0,1846,4,0.53,0.46,280,1877,1131,636,238,3882,1000,High,643
+USR_1008,Pooja Begum,IT Support Executive,Tier-1,60000,30,1.4,479,54.5,2,1334,4,0.65,0.76,4305,5203,3025,5833,1779,15840,4000,Medium,624
+USR_1009,Rajesh Bose,Kirana Shop Owner,Tier-3,12000,30,4.9,299,90.3,1,1917,3,0.45,0.97,2631,1506,1975,2252,426,6159,1500,High,714
+USR_1010,Karan Gupta,Gig Delivery Worker,Tier-2,60000,45,10.7,199,78.5,0,655,2,0.41,0.73,124,7017,7425,9663,2554,26659,6700,Low,650
+USR_1011,Ramesh Devi,College Student / Freelancer,Tier-2,12000,28,2.6,479,79.5,1,506,2,0.93,0.54,4471,285,217,189,55,746,500,Medium,701
+USR_1012,Karan Devi,Small Artisan / Handloom,Rural,20000,30,1,666,96.4,4,2312,1,0.91,0.56,4836,790,487,312,91,1680,500,High,626
+USR_1013,Ankit Chauhan,Private School Teacher,Tier-3,12000,28,10.2,479,74.2,0,1653,4,0.77,0.76,1861,657,722,834,246,2459,600,High,679
+USR_1014,Manoj Bose,Auto Rickshaw Driver,Tier-3,12000,28,5.1,666,93.2,0,1573,3,0.94,0.86,4315,162,77,126,45,410,500,Low,815
+USR_1015,Meena Hegde,Beautician / Salon Owner,Tier-2,25000,30,1.5,719,51.7,0,1838,1,0.93,0.77,301,471,326,500,70,1367,500,Low,703
+USR_1016,Pooja Kumar,IT Support Executive,Tier-1,15000,60,5.6,199,79.6,0,2400,4,0.56,0.8,170,1219,720,727,583,3249,800,High,707
+USR_1017,Pooja Gupta,Kirana Shop Owner,Tier-3,15000,30,9.8,666,50.4,0,1176,2,0.57,0.71,2565,2624,1494,907,165,5190,1300,Medium,617
+USR_1018,Prakash Bose,Gig Delivery Worker,Tier-2,60000,30,7.1,199,67.5,0,2371,4,0.41,0.26,562,12563,4044,6362,3100,26069,6500,Medium,615
+USR_1019,Priya Iyer,College Student / Freelancer,Tier-2,12000,28,8.5,299,77.7,3,1917,2,0.8,0.84,4953,657,418,705,113,1893,500,High,595
+USR_1020,Manoj Verma,Small Artisan / Handloom,Rural,12000,28,6.6,666,89.6,0,2270,1,0.89,0.32,1664,574,382,321,93,1370,500,High,707
+USR_1021,Ankit Hegde,Private School Teacher,Tier-3,12000,30,2.9,719,87.5,2,500,1,0.68,0.57,4449,980,473,521,310,2284,600,Medium,660
+USR_1022,Divya Sharma,Auto Rickshaw Driver,Tier-3,30000,30,3.2,719,62.2,2,2383,3,0.82,0.66,2178,2278,660,1205,112,4255,1100,Medium,630
+USR_1023,Nisha Bose,Beautician / Salon Owner,Tier-2,25000,30,10,199,80.9,0,1180,1,0.67,0.57,4030,3657,1742,1490,193,7082,1800,High,663
+USR_1024,Karan Bose,IT Support Executive,Tier-1,12000,30,7.7,199,77.7,1,2282,0,0.52,0.94,4462,1651,1290,975,201,4117,1000,Medium,677
+USR_1025,Nisha Chauhan,Kirana Shop Owner,Tier-3,25000,28,11.7,479,81.9,0,980,6,0.72,0.56,4670,2868,763,746,350,4727,1200,High,634
+USR_1026,Ritu Reddy,Gig Delivery Worker,Tier-2,30000,28,0.9,199,40.8,0,1821,6,0.49,0.4,1332,3556,2164,4889,1232,11841,3000,Medium,650
+USR_1027,Meena Patel,College Student / Freelancer,Tier-2,15000,28,6,479,71.2,2,1514,3,0.37,0.8,3139,3413,1347,1267,199,6226,1600,Medium,598
+USR_1028,Prakash Iyer,Small Artisan / Handloom,Rural,45000,30,6.8,199,87,0,1668,5,0.63,0.97,2513,4139,3774,2664,434,11011,2800,Low,759
+USR_1029,Amit Gupta,Private School Teacher,Tier-3,45000,28,8.5,666,50.9,0,2272,3,0.37,0.37,1465,5757,3337,3690,1612,14396,3600,Medium,586
+USR_1030,Manoj Das,Auto Rickshaw Driver,Tier-3,15000,30,7.7,479,95.3,0,909,3,0.57,0.6,3129,1681,1241,1850,147,4919,1200,Low,684
+USR_1031,Rajesh Verma,Beautician / Salon Owner,Tier-2,45000,45,9.1,666,46.4,0,1471,2,0.36,0.49,1136,7149,3569,9291,1943,21952,5500,High,583
+USR_1032,Arjun Devi,IT Support Executive,Tier-1,45000,30,6.9,199,73.9,0,1042,4,0.91,0.26,1204,1051,800,1266,109,3226,800,High,672
+USR_1033,Shweta Das,Kirana Shop Owner,Tier-3,45000,28,0.7,719,98.9,0,1175,4,0.75,0.93,2828,3616,1754,3289,393,9052,2300,Low,818
+USR_1034,Rohit Hegde,Gig Delivery Worker,Tier-2,45000,30,9.3,719,70.4,3,1005,4,0.47,0.75,530,4570,2397,3080,1379,11426,2900,High,522
+USR_1035,Ankit Reddy,College Student / Freelancer,Tier-2,30000,45,11.6,719,83.9,3,698,1,0.69,0.86,784,3613,1305,1310,308,6536,1600,High,587
+USR_1036,Sunita Tiwari,Small Artisan / Handloom,Rural,15000,28,9.9,479,77.4,0,1265,3,0.39,0.42,2759,2557,1524,2586,690,7357,1800,Medium,658
+USR_1037,Arjun Kumar,Private School Teacher,Tier-3,25000,30,7.1,719,49.1,0,846,1,0.69,0.81,4396,1957,2047,989,679,5672,1400,Low,665
+USR_1038,Vikram Nair,Auto Rickshaw Driver,Tier-3,25000,30,8.8,479,81.6,0,853,3,0.59,0.59,4741,2009,2226,2321,706,7262,1800,Low,670
+USR_1039,Swati Yadav,Beautician / Salon Owner,Tier-2,25000,28,11.1,719,95.3,1,635,6,0.42,0.97,4210,2717,4120,4603,891,12331,3100,Medium,673
+USR_1040,Suresh Rao,IT Support Executive,Tier-1,25000,30,7.4,479,63.9,0,2323,3,0.48,0.58,790,2637,2595,2661,1211,9104,2300,Medium,644
+USR_1041,Deepak Chauhan,Kirana Shop Owner,Tier-3,30000,30,11.7,199,48.9,0,487,3,0.8,0.4,4500,1269,828,654,346,3097,800,High,592
+USR_1042,Swati Reddy,Gig Delivery Worker,Tier-2,15000,28,9.3,666,50.9,2,2381,3,0.37,0.36,3608,3285,996,1469,363,6113,1500,High,476
+USR_1043,Harish Joshi,College Student / Freelancer,Tier-2,35000,28,7,479,79.2,0,518,4,0.75,0.4,1536,3665,897,1062,320,5944,1500,Medium,676
+USR_1044,Swati Chauhan,Small Artisan / Handloom,Rural,15000,60,7.7,479,55.6,0,1598,3,0.61,0.46,4747,2217,748,1855,345,5165,1300,High,604
+USR_1045,Rohit Chauhan,Private School Teacher,Tier-3,20000,30,9,299,78,0,606,4,0.36,0.92,676,4133,1981,3053,923,10090,2500,Medium,693
+USR_1046,Pooja Tiwari,Auto Rickshaw Driver,Tier-3,12000,28,7.1,199,65.1,0,1441,0,0.45,0.79,505,2184,983,1302,284,4753,1200,Medium,682
+USR_1047,Rohit Patel,Beautician / Salon Owner,Tier-2,60000,30,6,719,69,0,1487,4,0.72,0.6,1787,4291,3066,4640,1140,13137,3300,Medium,690
+USR_1048,Rohit Reddy,IT Support Executive,Tier-1,15000,30,6.5,666,72.5,3,1910,5,0.48,0.97,4725,1262,1880,2584,268,5994,1500,High,597
+USR_1049,Nisha Patel,Kirana Shop Owner,Tier-3,35000,28,8.9,479,95.5,4,2377,5,0.71,0.42,690,1756,2428,1877,791,6852,1700,Medium,555
+USR_1050,Harish Tiwari,Gig Delivery Worker,Tier-2,15000,30,5.4,666,54,0,2214,0,0.87,0.64,4701,759,584,365,158,1866,500,Medium,640
+USR_1051,Sanjay Hegde,College Student / Freelancer,Tier-2,12000,30,3.6,199,86.1,0,1226,2,0.56,0.46,1551,1162,572,551,522,2807,700,High,730
+USR_1052,Pooja Singh,Small Artisan / Handloom,Rural,30000,28,7.3,479,94.2,4,1935,1,0.85,0.42,4170,837,492,882,103,2314,600,High,554
+USR_1053,Shweta Begum,Private School Teacher,Tier-3,30000,28,11.6,199,71.1,1,1455,5,0.72,0.8,270,3515,2285,1800,430,8030,2000,Low,615
+USR_1054,Priya Hegde,Auto Rickshaw Driver,Tier-3,15000,45,8,719,84.1,0,855,0,0.77,0.29,2709,1513,420,1116,342,3391,800,Medium,663
+USR_1055,Manoj Iyer,Beautician / Salon Owner,Tier-2,15000,30,8.1,479,91.9,1,1446,2,0.45,0.49,1269,3539,999,2266,289,7093,1800,High,650
+USR_1056,Amit Rao,IT Support Executive,Tier-1,15000,45,3.1,299,89.1,2,1416,0,0.52,0.7,4907,2444,1094,1861,455,5854,1500,High,680
+USR_1057,Aisha Iyer,Kirana Shop Owner,Tier-3,35000,28,5.5,299,60.5,1,2350,3,0.53,0.77,430,5340,2782,4198,389,12709,3200,High,633
+USR_1058,Harish Hegde,Gig Delivery Worker,Tier-2,45000,28,9.9,479,55.2,0,649,2,0.86,0.63,4147,1508,1688,1847,241,5284,1300,Low,633
+USR_1059,Ankit Reddy,College Student / Freelancer,Tier-2,35000,28,5.5,719,94.6,2,2421,3,0.78,0.79,1081,3160,1870,1853,444,7327,1800,Medium,680
+USR_1060,Harish Joshi,Small Artisan / Handloom,Rural,45000,28,6.6,479,87.8,0,2306,3,0.71,0.69,1312,4143,1893,1829,941,8806,2200,Medium,714
