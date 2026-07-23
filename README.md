@@ -13,7 +13,7 @@ pip install -r requirements.txt
 ## 1. Generate the datasets
 ```
 cd backend
-python generate_dataset.py       # 500 synthetic users
+python generate_dataset.py       # 60 synthetic users
 python generate_companies.py     # 50 synthetic companies, ₹50-500 share price
 ```
 

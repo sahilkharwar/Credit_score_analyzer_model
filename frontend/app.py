@@ -152,6 +152,10 @@ with tab2:
             proj = requests.post(f"{API_URL}/api/investment-projection",
                                   json={"monthly_investment": amount, "risk_bucket": bucket}).json()
 
+            st.caption(f"📈 Step-up SIP: starts at ₹{proj['starting_monthly_investment']}/month and "
+                       f"grows to ₹{proj['final_monthly_investment']}/month by year 5 "
+                       f"({proj['step_up_note']})")
+
             df_proj = pd.DataFrame({
                 "Month": proj["months"],
                 "Pessimistic": proj["pessimistic"],
@@ -166,13 +170,14 @@ with tab2:
                                        line=dict(color="green", dash="dot")))
             fig2.add_trace(go.Scatter(x=df_proj["Month"], y=df_proj["Pessimistic"], name="Pessimistic",
                                        line=dict(color="red", dash="dot")))
-            fig2.update_layout(title=f"5-Year Projected Growth (₹{amount}/month SIP)",
+            fig2.update_layout(title=f"5-Year Projected Growth (₹{amount}/month step-up SIP)",
                                 xaxis_title="Months", yaxis_title="Portfolio Value (₹)", height=400)
             st.plotly_chart(fig2, use_container_width=True)
 
             final_expected = df_proj["Expected"].iloc[-1]
-            st.success(f"In 5 years, your ₹{amount}/month could grow to roughly ₹{final_expected:,.0f} "
-                       f"under expected market conditions (fund-based estimate).")
+            st.success(f"Starting at ₹{amount}/month and stepping up ₹100 every 6 months, your SIP could "
+                       f"grow to roughly ₹{final_expected:,.0f} in 5 years under expected market "
+                       f"conditions (fund-based estimate).")
 
         # ---- Personalized stock portfolio (individual companies, ₹50-500 share range) ----
         with plan_tab2:
@@ -185,6 +190,9 @@ with tab2:
                 st.write(f"A diversified mini-portfolio picked from {bucket}-risk companies you can "
                          f"afford at ₹{amount}/month, with a slightly different monthly amount per "
                          f"company (never more than ₹50 apart) and its own simulated growth path:")
+                st.caption(f"📈 Step-up SIP: starts at ₹{port_data['starting_monthly_investment']}/month "
+                           f"and grows to ₹{port_data['final_monthly_investment']}/month by year 5 "
+                           f"({port_data['step_up_note']})")
 
                 # Raw month-by-month trajectory is only for the chart, not the table.
                 display_df = pd.DataFrame(port_data["portfolio"]).drop(columns=["Projected_Values"])
@@ -197,7 +205,7 @@ with tab2:
                     fig3.add_trace(go.Scatter(
                         x=port_data["months"],
                         y=stock["Projected_Values"],
-                        name=f"{stock['Ticker']} (₹{stock['Monthly Allocation (₹)']}/mo)",
+                        name=f"{stock['Ticker']} (₹{stock['Monthly Allocation (₹)']}→₹{stock['Final Monthly Allocation (₹)']}/mo)",
                         mode="lines",
                         stackgroup="one",
                     ))
@@ -207,7 +215,7 @@ with tab2:
                     name="Total Principal Invested",
                     line=dict(color="black", width=3, dash="dash"),
                 ))
-                fig3.update_layout(title=f"5-Year Breakdown of Custom Portfolio Growth (₹{amount}/month SIP)",
+                fig3.update_layout(title=f"5-Year Breakdown of Custom Portfolio Growth (₹{amount}/month step-up SIP)",
                                     xaxis_title="Months", yaxis_title="Portfolio Value (₹)", height=420)
                 st.plotly_chart(fig3, use_container_width=True)
 

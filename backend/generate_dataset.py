@@ -1,3 +1,14 @@
+"""
+Synthetic dataset generator for the Transparent Credit Scoring &
+AI Micro-Investment Advisor project.
+
+Generates users with:
+  - Non-traditional credit signals (utility, recharge, UPI, e-commerce)
+  - Income + discretionary/"unnecessary" spending breakdown (tutor's idea)
+  - A rule-based baseline credit score (used only as training LABELS for
+    the real XGBoost model trained in train_model.py — the model does not
+    see this formula, it learns its own weights from the features)
+"""
 
 import pandas as pd
 import numpy as np
@@ -16,20 +27,20 @@ PERSONAS = [
     {"occupation": "Beautician / Salon Owner", "city_tier": "Tier-2"},
     {"occupation": "IT Engineer", "city_tier": "Tier-2"},
     {"occupation": "Repair Shop Owner", "city_tier": "Tier-2"},
-
+    {"occupation": "Small Restaurant Owner", "city_tier": "Tier-2"},
+    
 ]
 
 FIRST_NAMES = ["Ramesh", "Priya", "Ankit", "Sunita", "Vikram", "Aisha", "Rajesh",
                "Meena", "Suresh", "Kavita", "Deepak", "Pooja", "Manoj", "Sneha",
                "Arjun", "Neha", "Rohit", "Divya", "Karan", "Anjali", "Sanjay",
                "Ritu", "Amit", "Shweta", "Vivek", "Nisha", "Prakash", "Swati",
-               "Harish", "Rekha", "Ravi", "Pallavi", "Siddharth", "Anita",
-               "Rakesh", "Sunil", "Kiran"]
+               "Harish", "Rekha", "Ravi", "Pallavi", "Sanjana", "Amitabh",
+               "Kiran", "Radhika", "Siddharth"]
 LAST_NAMES = ["Kumar", "Sharma", "Verma", "Devi", "Singh", "Begum", "Patel",
               "Joshi", "Das", "Rao", "Yadav", "Hegde", "Tiwari", "Kulkarni",
-              "Nair", "Gupta", "Reddy", "Chauhan", "Iyer", "Bose", "Chatterjee", 
-              "Mehta", "Kapoor", "Chopra", "Malhotra", "Saxena", "Bhatia", "Jain", 
-              "Choudhury", "Ghosh", "Sinha", "Ranganathan", ]
+              "Nair", "Gupta", "Reddy", "Chauhan", "Iyer", "Bose", "Chatterjee",
+              "Mehta", "Kapoor", "Chopra", "Malhotra", "Saxena", "Bhatia", "Jain", "Choudhary"]
 
 
 def generate_synthetic_fintech_dataset(num_users=500):
@@ -41,7 +52,7 @@ def generate_synthetic_fintech_dataset(num_users=500):
 
         # --- Income ---
         monthly_income_inr = int(np.random.choice(
-            [12000, 15000, 20000, 25000, 30000, 35000, 40000, 50000]))
+            [12000, 15000, 20000, 25000, 30000, 35000, 40000, 45000, 50000]))
 
         # --- Non-traditional credit signals ---
         recharge_freq_days = int(np.random.choice([28, 30, 45, 60], p=[0.5, 0.3, 0.1, 0.1]))
@@ -63,7 +74,7 @@ def generate_synthetic_fintech_dataset(num_users=500):
         # high-income users get proportionally higher EMIs — no fixed cap.
         has_emi = bool(np.random.random() < 0.65)
         if has_emi:
-            monthly_emi_inr = monthly_income_inr * float(np.random.uniform(0.08, 0.25))
+            monthly_emi_inr = monthly_income_inr * float(np.random.uniform(0.08, 0.35))
             avg_yearly_emi_inr = int(monthly_emi_inr * 12)
             # Delay likelihood tracks the same underlying discipline as their
             # other bill-payment behavior (utility/UPI), plus a bit of noise.
@@ -73,7 +84,7 @@ def generate_synthetic_fintech_dataset(num_users=500):
             avg_yearly_emi_inr = 0
             emi_delay_months_12m = 0
 
-        # --- Discretionary spending breakdown ---
+        # --- Tutor's idea: discretionary / "unnecessary" spending ---
         non_essential_budget = monthly_income_inr * (1 - essential_spending_ratio)
         food_delivery_spend_inr = int(non_essential_budget * np.random.uniform(0.15, 0.45))
         outing_entertainment_spend_inr = int(non_essential_budget * np.random.uniform(0.1, 0.3))

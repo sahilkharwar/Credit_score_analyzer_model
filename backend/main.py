@@ -65,6 +65,18 @@ RISK_INSTRUMENTS = {
     "High": ["Mid/Small-Cap Equity Mutual Funds", "Sectoral Index Funds"],
 }
 
+# --- Step-up SIP: the monthly contribution isn't flat for all 60 months —
+# it increases by ₹100 every 6 months, which is how real step-up SIPs work
+# and better reflects rising income/savings capacity over time.
+STEP_UP_AMOUNT = 100
+STEP_UP_EVERY_MONTHS = 6
+
+
+def stepped_contribution(base_amount: float, month: int) -> float:
+    """Monthly contribution for a given month (1-indexed) under the step-up SIP."""
+    increments = (month - 1) // STEP_UP_EVERY_MONTHS
+    return base_amount + STEP_UP_AMOUNT * increments
+
 RISK_QUESTIONS = [
     {
         "id": "q1",
@@ -266,17 +278,32 @@ def submit_risk_answers(payload: RiskAnswers):
 
 @app.post("/api/investment-projection")
 def get_investment_projection(req: InvestmentRequest):
-    """SIP compound-growth projection across 3 market scenarios."""
+    """
+    SIP compound-growth projection across 3 market scenarios, with a
+    step-up contribution that increases by ₹100 every 6 months instead of
+    staying flat.
+    """
     if req.risk_bucket not in RISK_RATES:
         raise HTTPException(status_code=400, detail="Invalid risk bucket")
     months = np.arange(1, 61)  # 5 years
 
     def calculate_compound(rate):
         monthly_rate = rate / 12
-        if abs(monthly_rate) < 1e-9:
-            return (req.monthly_investment * months).tolist()
-        fv = req.monthly_investment * (((1 + monthly_rate) ** months - 1) / monthly_rate) * (1 + monthly_rate)
-        return fv.tolist()
+        value = 0.0
+        values = []
+        for m in range(1, 61):
+            contribution = stepped_contribution(req.monthly_investment, m)
+            value = (value + contribution) * (1 + monthly_rate)
+            values.append(value)
+        return values
+
+    # Total principal invested also grows with the step-up schedule, so it
+    # has to be accumulated month by month rather than a flat multiplication.
+    total_invested = []
+    running_total = 0.0
+    for m in range(1, 61):
+        running_total += stepped_contribution(req.monthly_investment, m)
+        total_invested.append(round(running_total, 2))
 
     rates = RISK_RATES[req.risk_bucket]
     return {
@@ -284,6 +311,10 @@ def get_investment_projection(req: InvestmentRequest):
         "pessimistic": calculate_compound(rates["pessimistic"]),
         "expected": calculate_compound(rates["expected"]),
         "optimistic": calculate_compound(rates["optimistic"]),
+        "total_invested": total_invested,
+        "starting_monthly_investment": req.monthly_investment,
+        "final_monthly_investment": stepped_contribution(req.monthly_investment, 60),
+        "step_up_note": f"Contribution increases by ₹{STEP_UP_AMOUNT} every {STEP_UP_EVERY_MONTHS} months.",
         "disclaimer": "EDUCATIONAL PURPOSES ONLY. NOT REGULATED FINANCIAL ADVICE.",
     }
 
@@ -297,7 +328,8 @@ def recommend_portfolio(req: InvestmentRequest):
     two), and simulates 5-year growth month-by-month with a per-stock
     interest rate that starts between 3-12% p.a. and shifts by 0.5-1.5
     percentage points EVERY SINGLE MONTH (clamped to the 3-12% band) —
-    rather than a single flat compound-interest formula.
+    rather than a single flat compound-interest formula. The total monthly
+    contribution is a step-up SIP: it increases by ₹100 every 6 months.
     """
     if req.risk_bucket not in RISK_RATES:
         raise HTTPException(status_code=400, detail="Invalid risk bucket")
@@ -382,11 +414,18 @@ def recommend_portfolio(req: InvestmentRequest):
 
             current_share_price = max(1.0, current_share_price * (1 + monthly_return))
 
+            # Step-up SIP: this stock's slice of the total monthly investment
+            # grows in the same proportion as the overall step-up (+₹100
+            # every 6 months to the total), keeping the original allocation
+            # ratio between stocks intact.
+            step_up_scale = stepped_contribution(req.monthly_investment, m) / req.monthly_investment
+            this_month_contribution = allocated_amount * step_up_scale
+
             # Real SIP behaviour: buy shares at THIS month's price, then
             # value = shares owned so far x current price. When price dips,
             # the portfolio value can dip too, even though contributions
             # keep flowing in (and you're buying more shares while it's cheap).
-            shares_owned += allocated_amount / current_share_price
+            shares_owned += this_month_contribution / current_share_price
             accumulated_value = shares_owned * current_share_price
 
             stock_values.append(accumulated_value)
@@ -406,6 +445,7 @@ def recommend_portfolio(req: InvestmentRequest):
             "Sector": stock["sector"],
             "Share Price (₹)": stock["current_price"],
             "Monthly Allocation (₹)": allocated_amount,
+            "Final Monthly Allocation (₹)": round(allocated_amount * stepped_contribution(req.monthly_investment, 60) / req.monthly_investment, 2),
             "Approx Shares/Month": round(shares_per_month, 2),
             "Avg Simulated Return": f"{avg_annual_rate * 100:.2f}%",
             "Projected_Values": [round(v, 2) for v in stock_values],
@@ -416,12 +456,20 @@ def recommend_portfolio(req: InvestmentRequest):
             )
         portfolio_details.append(detail)
 
-    total_invested = (req.monthly_investment * months_range).tolist()
+    # Total principal invested also follows the step-up schedule.
+    total_invested = []
+    running_total = 0.0
+    for m in range(1, 61):
+        running_total += stepped_contribution(req.monthly_investment, m)
+        total_invested.append(round(running_total, 2))
 
     return {
         "months": months_range.tolist(),
         "projected_values": np.round(portfolio_value, 2).tolist(),
         "total_invested": total_invested,
+        "starting_monthly_investment": req.monthly_investment,
+        "final_monthly_investment": stepped_contribution(req.monthly_investment, 60),
+        "step_up_note": f"Contribution increases by ₹{STEP_UP_AMOUNT} every {STEP_UP_EVERY_MONTHS} months.",
         "portfolio": portfolio_details,
         "disclaimer": "EDUCATIONAL PURPOSES ONLY. NOT REGULATED FINANCIAL ADVICE.",
     }
