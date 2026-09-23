@@ -1,92 +1,184 @@
-# Credit Visibility & Micro-Investment Advisor
+# FinSight
 
-A full working prototype: real XGBoost credit scoring + SHAP explainability,
-plus a conversational investment advisor that opens with a discretionary-
-spending savings hook (your tutor's idea) before assessing risk tolerance
-(the hackathon's required flow).
+**AI-Powered Transparent Credit Scoring & Micro-Investment Advisor**
 
-## Setup
-```
-pip install -r requirements.txt
+FinSight is a full-stack fintech application that predicts credit scores using XGBoost, explains every prediction with SHAP Explainable AI, and generates dynamic long-term investment projections using React and FastAPI.
+
+---
+
+## Features
+
+- AI Credit Score Prediction (300–850)
+- XGBoost Machine Learning Model
+- SHAP Explainable AI
+- Financial Analytics Dashboard
+- Dynamic Spending Insights
+- 1–30 Year SIP Investment Forecast
+- Pessimistic / Expected / Optimistic Scenarios
+- FastAPI REST API
+- React + Tailwind Frontend
+
+---
+
+## Tech Stack
+
+| Layer            | Technology                  |
+| ---------------- | --------------------------- |
+| Frontend         | React + Vite + Tailwind CSS |
+| Backend          | FastAPI                     |
+| Machine Learning | XGBoost                     |
+| Explainable AI   | SHAP                        |
+| Charts           | Recharts                    |
+| Language         | Python & JavaScript         |
+
+---
+
+## Architecture
+
+React Frontend
+
+↓
+
+Axios REST API
+
+↓
+
+FastAPI Backend
+
+↓
+
+XGBoost Credit Scoring
+
+↓
+
+SHAP Explainable AI
+
+↓
+
+Synthetic Financial Dataset
+
+---
+
+## Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/sahilkharwar/Credit_score_analyzer_model.git
+cd Credit_score_analyzer_model
 ```
 
-## 1. Generate the datasets
-```
+### Backend
+
+```bash
 cd backend
-python generate_dataset.py       # 60 synthetic users
-python generate_companies.py     # 50 synthetic companies, ₹50-500 share price
+
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+
+pip install -r requirements.txt
+
+python -m uvicorn main:app --reload
 ```
 
-## 2. Train the XGBoost model + build the SHAP explainer
-```
-python train_model.py
-```
-This creates `credit_model.json` (the trained model, saved in XGBoost's
-native portable format — not pickle, so it loads reliably across machines/
-OSes/versions) and `model_config.json`. The SHAP explainer is rebuilt
-fresh each time the API starts (fast, and avoids any serialization
-issues). You only need to re-run this step if you regenerate the dataset.
+Backend runs at:
 
-## 3. Run the backend API
-```
-uvicorn main:app --reload
-```
-Interactive API docs: http://127.0.0.1:8000/docs
+`http://127.0.0.1:8000`
 
-## 4. Run the frontend (in a new terminal)
+### Frontend
+
+```bash
+cd frontend
+
+npm install
+
+npm run dev
 ```
-cd ../frontend
-streamlit run app.py
-```
-Opens at http://localhost:8501
 
-## What's actually ML/AI here (not hardcoded)
-- **XGBoost regressor** trained on 6 non-traditional signals (utility
-  payment %, missed bills, recharge volatility, UPI regularity,
-  essential-spend ratio, e-commerce frequency) predicts each user's
-  credit-likelihood score. The rule-based formula from the original
-  brainstorm now only generates training LABELS — the live prediction
-  comes from the trained model, verified at 200+ test-time inference calls.
-- **SHAP TreeExplainer** computes true per-user feature attributions for
-  the top-3 explanation and improvement tip — genuinely different per user,
-  not an if/else ladder.
-- **Rule-scored risk quiz** (3 questions) buckets users into
-  Low/Medium/High, which drives instrument mapping + the SIP projection.
+Frontend runs at:
 
-## Personalized stock portfolio (new)
-On the results screen, a second tab ("🏢 Personalized stock portfolio")
-builds a real mini-portfolio: `generate_companies.py` creates 50 synthetic
-companies with share prices between ₹50-500, each tagged with a risk
-bucket and an expected CAGR. `/api/recommend-portfolio` picks up to 4
-companies matching the user's risk bucket that they can actually afford
-at their monthly SIP amount, splits the investment equally across them,
-and projects 5-year growth per stock — shown as a principal-vs-value
-area chart plus a breakdown table (ticker, price, allocation, shares/month,
-expected return). Selection is deterministic per (risk, amount) pair so
-results are reproducible for a demo.
+`http://localhost:5173`
 
-## Your tutor's idea, merged in
-The chat flow opens with `GET /api/spending-hook/{user_id}` — it surfaces
-the user's food delivery / outings / impulse-shopping spend and proposes
-redirecting 25% of it into a monthly SIP, *before* moving into the
-required risk-profiling questions. Nothing from the original problem
-statement's requirements was dropped; the tutor's angle is the "hook",
-the credit-scoring + risk-profiling core is still the backbone.
+---
 
-## Project structure
-```
-fintech_app/
+## Project Structure
+
+```text
+Credit_score_analyzer_model/
+
 ├── backend/
-│   ├── generate_dataset.py    # synthetic user data (incl. discretionary spend)
-│   ├── generate_companies.py  # synthetic company/stock data (₹50-500)
-│   ├── train_model.py         # trains XGBoost + builds SHAP explainer
-│   ├── main.py                 # FastAPI app — all endpoints
-│   ├── synthetic_users.json    # generated dataset (60 users)
-│   ├── companies.json          # generated dataset (50 companies)
-│   ├── credit_model.json       # trained model, native XGBoost format (generated)
-│   └── model_config.json       # feature list + labels (generated)
+│   ├── main.py
+│   ├── credit_model.json
+│   ├── model_config.json
+│   ├── synthetic_users.json
+│   ├── train_model.py
+│   └── requirements.txt
+│
 ├── frontend/
-│   └── app.py                 # Streamlit web app (2 tabs: score, chat)
-├── requirements.txt
-└── README.md
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   └── vite.config.js
+│
+├── README.md
+└── .gitignore
 ```
+
+---
+
+## Machine Learning
+
+The credit scoring engine uses **XGBoost Regression** trained on synthetic financial behavior.
+
+Input features include:
+
+- Monthly Income
+- Savings Ratio
+- Debt-to-Income Ratio
+- Utility Payment Behaviour
+- UPI Regularity
+- Recharge Consistency
+
+The model predicts a score between **300–850** and classifies users into Low, Medium, or High risk categories.
+
+---
+
+## Explainable AI
+
+Every prediction is interpreted using **SHAP TreeExplainer**, allowing users to understand the top financial features influencing their credit score instead of receiving a black-box prediction.
+
+---
+
+## Investment Planner
+
+Users can simulate wealth creation from **1–30 years** by selecting:
+
+- Monthly SIP
+- Risk Profile
+- Market Scenario
+
+The application generates projections for:
+
+- Pessimistic
+- Expected
+- Optimistic
+
+using compound growth visualization with interactive charts.
+
+---
+
+## Disclaimer
+
+This project is developed for academic and educational purposes. The financial predictions are generated from synthetic data and should not be considered real financial advice.
+
+---
+
+## Author
+
+**Sahil Kharwar**
+
+MSc Information Technology (AI & ML)
+
+GitHub: https://github.com/sahilkharwar
